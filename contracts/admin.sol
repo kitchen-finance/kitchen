@@ -2,7 +2,7 @@ pragma solidity =0.5.4;
 
 import 'owner.sol';
 
-contract Admin is Ownable {
+contract TimeLockedAdmin is Ownable {
     address payable public timeLockedAdmin;
     uint256 public effectTime;
     uint256 public delay;

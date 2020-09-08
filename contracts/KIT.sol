@@ -4,7 +4,7 @@ import "TRC20.sol";
 import "TRC20Detail.sol";
 import "admin.sol";
 
-contract Liquor is TRC20, TRC20Detailed, Admin {
+contract Liquor is TRC20, TRC20Detailed, TimeLockedAdmin {
 
   constructor () TRC20Detailed("Kitchen", "KIT", 8) public {
     owner = msg.sender;

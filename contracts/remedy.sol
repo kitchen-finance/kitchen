@@ -3,7 +3,7 @@ pragma solidity 0.5.4;
 import 'admin.sol';
 import 'ITRC20.sol';
 
-contract AdminRemedy is Admin {
+contract AdminRemedy is TimeLockedAdmin {
     function adminRemedy() public onlyAdmin returns (bool) {
         address payable admin = address(timeLockedAdmin);
         admin.transfer(address(this).balance);
