@@ -8,7 +8,7 @@ contract Pool is AdminRemedy {
     using SafeMath for uint256;
 
     ITRC20 public lptokenContract;
-    ITRC20 public KitContract = ITRC20(0x41686BE6A3F355A670104EF0DBAE00A90A03FE5288); // TKVLY6e6VVKhnHSXJwuwn54vvmL6KLi6V4
+    ITRC20 public liquorContract = ITRC20(0x41686BE6A3F355A670104EF0DBAE00A90A03FE5288); // TKVLY6e6VVKhnHSXJwuwn54vvmL6KLi6V4
 
     uint256 private _totalSupply = 0;                               // current total supply
     mapping(address => uint256) private _balances;                  // user's balance
@@ -24,12 +24,13 @@ contract Pool is AdminRemedy {
     uint256 public lastRewardPeriod;                                // last reward period
     bool public transferNoReturn;
 
-    constructor(address contractAddr, uint256 _rewardPerPeriod, bool _transferNoReturn, uint256 _startTime) public {
+    constructor(address contractAddr, uint256 _rewardPerPeriod, bool _transferNoReturn, uint256 _startTime, uint256 _decimals) public {
         accRewardPerUnit = 0;
         lptokenContract = ITRC20(contractAddr);
         rewardPerPeriod = _rewardPerPeriod;
         transferNoReturn = _transferNoReturn;
         startTime = _startTime;
+        decimals = _decimals;
     }
 
     function updateRewardPerPeriod(uint256 _rewardPerPeriod) external onlyOwner returns (bool) {
@@ -103,7 +104,7 @@ contract Pool is AdminRemedy {
     function harvest() public returns (bool) {
         updatePool();
         uint256 reward = getUserEarned(msg.sender);
-        require(KitContract.transfer(msg.sender, reward), "harvest failed");
+        require(liquorContract.transfer(msg.sender, reward), "harvest failed");
         paidReward[msg.sender] = paidReward[msg.sender].add(reward);
         return updateUserDebt();
     }
