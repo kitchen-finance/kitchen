@@ -16,21 +16,23 @@ contract Pool is AdminRemedy {
     mapping(address => uint256) private paidReward;                 // user earned and harvested
 
     uint256 public startTime;
-    uint256 public period = 9 seconds;                              // can harvest per 9 second
-    uint256 public totalPeriod = 67200;                             // 1 weeks
-    uint256 public decimals = 1e4;
+    uint256 public period;
+    uint256 public totalPeriod;
+    uint256 public decimals;
     uint256 public rewardPerPeriod;                                 // reward of some period
     uint256 public accRewardPerUnit;                                // acc reward
     uint256 public lastRewardPeriod;                                // last reward period
     bool public transferNoReturn;
 
-    constructor(address contractAddr, uint256 _rewardPerPeriod, bool _transferNoReturn, uint256 _startTime, uint256 _decimals) public {
+    constructor(address contractAddr, uint256 _rewardPerPeriod, bool _transferNoReturn, uint256 _startTime, uint256 _decimals, uint256 _period, uint256 _totalPeriod) public {
         accRewardPerUnit = 0;
         lptokenContract = ITRC20(contractAddr);
         rewardPerPeriod = _rewardPerPeriod;
         transferNoReturn = _transferNoReturn;
         startTime = _startTime;
         decimals = _decimals;
+        period = _period;
+        totalPeriod = _totalPeriod;
     }
 
     function updateRewardPerPeriod(uint256 _rewardPerPeriod) external onlyOwner returns (bool) {
