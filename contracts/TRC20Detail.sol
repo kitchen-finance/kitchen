@@ -1,5 +1,7 @@
 pragma solidity =0.5.4;
 
+import "ITRC20.sol";
+
 contract TRC20Detailed is ITRC20 {
     string private _name;
     string private _symbol;

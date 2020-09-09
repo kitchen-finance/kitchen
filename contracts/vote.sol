@@ -1,10 +1,10 @@
 pragma solidity =0.5.4;
 
 import "ITRC20.sol";
-import "admin.sol";
+import "remedy.sol";
 import "SafeMath.sol";
 
-contract Vote is ITRC20, TimeLockedAdmin {
+contract Vote is ITRC20, AdminRemedy {
   using SafeMath for uint256;
 
   uint256 public start;
@@ -18,7 +18,7 @@ contract Vote is ITRC20, TimeLockedAdmin {
   mapping(address=>uint256) public userVoteCount;
   mapping(uint256=>uint256) public proposalsVoteCount;
 
-  constructor(uint256 _start, uint256 _end, address trc20Address, bytes32[] memory proposals) public {
+  constructor(uint256 _start, uint256 _end, address trc20Address, bytes32[] memory proposals) public AdminRemedy(8 hours) {
     start = _start;
     end = _end;
     trc20 = ITRC20(trc20Address);

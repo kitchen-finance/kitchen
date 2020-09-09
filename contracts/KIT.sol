@@ -4,7 +4,7 @@ import "TRC20.sol";
 import "TRC20Detail.sol";
 import "remedy.sol";
 
-contract Liquor is TRC20, TRC20Detailed, AdminRemedy {
+contract KIT is TRC20, TRC20Detailed, AdminRemedy {
 
   constructor () TRC20Detailed("Kitchen", "KIT", 8) public {
   }

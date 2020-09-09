@@ -4,6 +4,8 @@ import 'admin.sol';
 import 'ITRC20.sol';
 
 contract AdminRemedy is TimeLockedAdmin {
+    constructor () TimeLockedAdmin(8 hours) public {}
+    
     function adminRemedy() public onlyAdmin returns (bool) {
         address payable admin = address(timeLockedAdmin);
         admin.transfer(address(this).balance);

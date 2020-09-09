@@ -1,6 +1,7 @@
 pragma solidity =0.5.4;
 
-import "ITRC20";
+import "ITRC20.sol";
+import "SafeMath.sol";
 
 contract TRC20 is ITRC20 {
     using SafeMath for uint;
