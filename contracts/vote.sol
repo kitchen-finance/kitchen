@@ -1,10 +1,10 @@
 pragma solidity =0.5.4;
 
 import "ITRC20.sol";
-import "remedy.sol";
+import "owner.sol";
 import "SafeMath.sol";
 
-contract Vote is ITRC20, AdminRemedy {
+contract Vote is Ownable {
   using SafeMath for uint256;
 
   uint256 public start;
@@ -13,19 +13,17 @@ contract Vote is ITRC20, AdminRemedy {
 
   ITRC20 trc20;
 
-  bytes32[] public options;
+  address[] public options;
   uint256 public length;
+  uint256 public total;
   mapping(address=>uint256) public userVoteCount;
   mapping(uint256=>uint256) public proposalsVoteCount;
 
-  constructor(uint256 _start, uint256 _end, address trc20Address, bytes32[] memory proposals) public AdminRemedy(8 hours) {
+  constructor(address trc20Address, uint256 _start, uint256 duration, uint256 _length) public {
     start = _start;
-    end = _end;
+    end = start + duration;
     trc20 = ITRC20(trc20Address);
-    length = proposals.length;
-    for (uint256 i = 0; i < proposals.length; i++) {
-      options.push(proposals[i]);
-    }
+    length = _length;
   }
 
   function stop() public onlyOwner returns (bool) {
@@ -60,6 +58,7 @@ contract Vote is ITRC20, AdminRemedy {
     userVoteCount[_msgSender()] = voted.add(count);
     uint256 optionVoted = proposalsVoteCount[option];
     proposalsVoteCount[option] = optionVoted.add(count);
+    total = total.add(count);
     return true;
   }
 

@@ -2,13 +2,13 @@ pragma solidity =0.5.4;
 
 import "SafeMath.sol";
 import "ITRC20.sol";
-import "remedy.sol";
+import "owner.sol";
 
-contract Pool is AdminRemedy {
+contract Pool is Ownable {
     using SafeMath for uint256;
 
     ITRC20 public lptokenContract;
-    ITRC20 public liquorContract = ITRC20(0x41F0C817895B90443BA5AC612B8852AFFB94CA0465); // TXvLsjHxtwXD3fJaLYF86NvWvUZtNNdqy1
+    ITRC20 public liquorContract = ITRC20(0x41499E922079D0B4CC83F6E289C6C3812E210EE031); // TGgUHkmotBAmxH1CQezdWeVcpYVLJSHLuU
 
     uint256 private _totalSupply = 0;                               // current total supply
     mapping(address => uint256) private _balances;                  // user's balance
